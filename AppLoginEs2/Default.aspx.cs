@@ -11,15 +11,25 @@ namespace AppLoginEs2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         protected void Login_Click(object sender, EventArgs e)
         {
+
             HttpCookie cookie = new HttpCookie("Utente");
-            cookie.Values["UserName"] =txtUsername.Text;
+            cookie.Values["UserName"] = txtUsername.Text;
             cookie.Values["Password"] = txtPassword.Text;
-            Response.Cookies.Add(cookie);
+            if(cookie.Values["UserName"] != "" && cookie.Values["Password"] != "")
+            {
+                Response.Cookies.Add(cookie);
+                Response.Redirect("Utente.aspx");
+            }
+            else {
+                Response.Redirect("Default.aspx");
+
+            }
+
         }
     }
 }

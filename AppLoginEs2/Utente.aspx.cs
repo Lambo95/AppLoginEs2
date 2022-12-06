@@ -15,15 +15,23 @@ namespace AppLoginEs2
             {
                 txtUtente.Text =$"Benvenuto {Request.Cookies["Utente"]["Username"]}!";
             }
+            else
+            {
+                Response.Redirect("Default.aspx");
+            }
         }
 
         protected void Logout_Click(object sender, EventArgs e)
         {
-            HttpCookie c = new HttpCookie("DeleteUtente")
+
+            if (Request.Cookies != null)
             {
-                Expires = DateTime.Now.AddDays(-1)
-            };
-            Response.Cookies.Add(c);
+                Request.Cookies["Utente"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(Request.Cookies["Utente"]);
+                Response.Redirect("Default.aspx");
+
+            }
+            
 
         }
     }
